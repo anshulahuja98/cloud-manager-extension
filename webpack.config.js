@@ -62,6 +62,9 @@ const config = {
     alias: {
       "react-dom": "@hot-loader/react-dom",
     },
+    fallback: {
+      fs: false
+    }
   },
   devServer: {
     contentBase: "./dist",
