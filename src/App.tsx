@@ -1,11 +1,10 @@
 import * as React from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FaCloud, FaRocket } from 'react-icons/fa';
-import { AiOutlineDeploymentUnit } from 'react-icons/ai';
+import Navbar from './components/Navbar';
+import Content from './components/Content';
 
 const App = () => {
 	const [activeNavKey, setActiveNavKey] = React.useState('/home');
@@ -16,34 +15,13 @@ const App = () => {
 			</Row>
 			<Row className='m-0 h-100'>
 				<div className='p-0 bg-secondary justify-content-center align-items-center flex-column'>
-					<Nav
-						variant='pills'
-						activeKey={activeNavKey}
-						onSelect={(selectedKey) => setActiveNavKey(selectedKey)}
-						className='flex-column p-0'>
-						<Nav.Item>
-							<Nav.Link eventKey='/home'>
-								<FaCloud />
-							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey='/deployments'>
-								<FaRocket />
-							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey='/pods'>
-								<AiOutlineDeploymentUnit />
-							</Nav.Link>
-						</Nav.Item>
-					</Nav>
+					<Navbar activeNavKey={activeNavKey} setActiveNavKey={setActiveNavKey} />
 				</div>
 				<Col className='bg-light'>
 					<Container className='flex-column py-4'>
-						<h3>Cloud Deployment</h3>
-						<h3>Cloud Deployment</h3>
-						<h3>Cloud Deployment</h3>
-						<h3>Cloud Deployment</h3>
+						<Content title='Home' />
+						<Content title='Deployments' />
+						<Content title='Pods' />
 					</Container>
 				</Col>
 			</Row>
