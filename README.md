@@ -23,5 +23,18 @@ After the project has been built, a directory named `dist` has been created. You
 5. Select the `dist` directory.
 6. To view the console, click on `Background page` in extension details
 
-
 NOTE:- Remember to reload the extension from extensions page.
+
+For APIs:-
+
+1. To run the minikube with access to CORS,
+
+```bash
+minikube --extra-config apiserver.cors-allowed-origins=["http://*"] start
+```
+
+2. To access API, run
+
+```bash
+kubectl proxy
+```
