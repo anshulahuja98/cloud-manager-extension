@@ -38,13 +38,17 @@
 	}
 }
 
+.navbar-container {
+	background-color: white !important;
+}
+
 .nav-link {
-	color: #f8f9fa !important;
-	background-color: transparent !important;
+	border-radius: 0 !important;
+	color: #007bff !important;
+	background-color: white !important;
 }
 
 .nav-link.active {
-	border-radius: 0 !important;
-	color: #007bff !important;
-	background-color: #f8f9fa !important;
+	color: white !important;
+	background-color: #007bff !important;
 }

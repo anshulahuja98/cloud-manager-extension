@@ -16,10 +16,10 @@ const App = () => {
 					<h4 className='header'>AIO Cloud Management</h4>
 				</Row>
 				<Row className='m-0 h-100'>
-					<div className='p-0 bg-secondary justify-content-center align-items-center flex-column'>
+					<div className='p-0 justify-content-center align-items-center flex-column navbar-container'>
 						<Navbar />
 					</div>
-					<Col className='bg-light py-2'>
+					<Col className=' py-2'>
 						<ContentContainer />
 					</Col>
 				</Row>
