@@ -30,8 +30,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "react": "^16.14.0",
+    "react-bootstrap": "^1.5.0",
     "react-dom": "^16.14.0",
-    "react-hot-loader": "^4.13.0"
+    "react-hot-loader": "^4.13.0",
+    "react-icons": "^4.2.0"
   }
 }
