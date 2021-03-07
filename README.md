@@ -30,7 +30,7 @@ For APIs:-
 1. To run the minikube with access to CORS,
 
 ```bash
-minikube --extra-config apiserver.cors-allowed-origins=["http://*"] start
+minikube start --extra-config 'apiserver.cors-allowed-origins=["http://*"]'
 ```
 
 2. To access API, run
