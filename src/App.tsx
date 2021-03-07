@@ -6,15 +6,20 @@ import Col from 'react-bootstrap/Col';
 import Navbar from './components/Navbar';
 import TabContainer from 'react-bootstrap/esm/TabContainer';
 import ContentContainer from './components/ContentContainer';
+import TopBar from './components/TopBar';
+import { useStore } from './store/useStore'
 
 const App = () => {
+	const { updateNamespaceList } = useStore();
+
+	React.useEffect(() => {
+		updateNamespaceList();
+	}, [])
 	return (
 		// @ts-expect-error
 		<TabContainer id='left-tabs' defaultActiveKey='home'>
 			<Container fluid className='p-0' style={{ width: '480px', height: '480px' }}>
-				<Row className='justify-content-center m-0 p-2 bg-primary text-light'>
-					<h4 className='header'>AIO Cloud Management</h4>
-				</Row>
+				<TopBar />
 				<Row className='m-0 h-100'>
 					<div className='p-0 justify-content-center align-items-center flex-column navbar-container'>
 						<Navbar />
