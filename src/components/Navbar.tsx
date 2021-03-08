@@ -1,4 +1,6 @@
 import React = require('react');
+import { OverlayTrigger, Button } from 'react-bootstrap';
+import Tooltip from 'react-bootstrap/esm/Tooltip';
 import Nav from 'react-bootstrap/Nav';
 import { AiFillSkype, AiOutlineCloudServer, AiOutlineCloudUpload, AiOutlineDeploymentUnit } from 'react-icons/ai';
 import { FaCloud, FaCloudUploadAlt, FaRocket } from 'react-icons/fa';
@@ -6,11 +8,21 @@ import { NAV_ITEMS } from './navItems';
 
 const NavItem: React.FC<{ eventKey }> = ({ children, eventKey }) => {
 	return (
-		<Nav.Item>
-			<Nav.Link eventKey={eventKey}>
-				{children}
-			</Nav.Link>
-		</Nav.Item>
+		<OverlayTrigger
+			key={eventKey}
+			placement={'right'}
+			overlay={
+				<Tooltip id={`tooltip-${eventKey}`}>
+					{eventKey}
+				</Tooltip>
+			}
+		>
+			<Nav.Item>
+				<Nav.Link eventKey={eventKey}>
+					{children}
+				</Nav.Link>
+			</Nav.Item>
+		</OverlayTrigger>
 	)
 }
 

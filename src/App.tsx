@@ -8,13 +8,16 @@ import TabContainer from 'react-bootstrap/esm/TabContainer';
 import ContentContainer from './components/ContentContainer';
 import TopBar from './components/TopBar';
 import { useStore } from './store/useStore'
+import { NAV_ITEMS } from './components/navItems';
 
 const App = () => {
 	const { updateNamespaceList, activeNavEventKey, setActiveNavEventKey } = useStore();
-	console.log(activeNavEventKey)
+
 	React.useEffect(() => {
 		updateNamespaceList();
+		// TODO: Fix navbar not highlighting initially selected nav item
 	}, [])
+
 	return (
 		// @ts-expect-error
 		<TabContainer id='left-tabs' defaultActiveKey='home'>
