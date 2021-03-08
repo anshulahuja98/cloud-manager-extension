@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { callAPI } from "../utils";
 import { V1Namespace, V1NamespaceList } from '../types/api';
+import { NAV_ITEMS } from "../components/navItems";
 
 export const useGlobalState = () => {
     const [namespaceList, setNamespaceList] = useState<V1Namespace[]>([]);
@@ -17,9 +18,9 @@ export const useGlobalState = () => {
             NAMESPACE_LIST_API: `/api/v1/namespaces`,
         }
     );
+    const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
     const [loading, setLoading] = useState(true);
 
-    console.log(namespaceList)
     const updateNamespaceList = useMemo(
         () => () => {
             setLoading(true);
@@ -41,5 +42,7 @@ export const useGlobalState = () => {
         kubernetesAPIs,
         updateNamespaceList,
         setActiveNamespace,
+        activeNavEventKey,
+        setActiveNavEventKey
     };
 };

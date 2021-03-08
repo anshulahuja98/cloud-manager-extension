@@ -10,8 +10,8 @@ import TopBar from './components/TopBar';
 import { useStore } from './store/useStore'
 
 const App = () => {
-	const { updateNamespaceList } = useStore();
-
+	const { updateNamespaceList, activeNavEventKey, setActiveNavEventKey } = useStore();
+	console.log(activeNavEventKey)
 	React.useEffect(() => {
 		updateNamespaceList();
 	}, [])
@@ -22,10 +22,10 @@ const App = () => {
 				<TopBar />
 				<Row className='m-0 h-100'>
 					<div className='p-0 justify-content-center align-items-center flex-column navbar-container'>
-						<Navbar />
+						<Navbar activeNavEventKey={activeNavEventKey} setActiveNavEventKey={setActiveNavEventKey} />
 					</div>
-					<Col className=' py-2'>
-						<ContentContainer />
+					<Col className='py-2'>
+						<ContentContainer activeNavEventKey={activeNavEventKey} />
 					</Col>
 				</Row>
 			</Container>
