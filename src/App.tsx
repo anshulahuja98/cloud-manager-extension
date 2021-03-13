@@ -7,8 +7,7 @@ import Navbar from './components/Navbar';
 import TabContainer from 'react-bootstrap/esm/TabContainer';
 import ContentContainer from './components/ContentContainer';
 import TopBar from './components/TopBar';
-import { useStore } from './store/useStore'
-import { NAV_ITEMS } from './components/navItems';
+import { useStore } from './store/useStore';
 
 const App = () => {
 	const { updateNamespaceList, activeNavEventKey, setActiveNavEventKey } = useStore();
@@ -16,7 +15,7 @@ const App = () => {
 	React.useEffect(() => {
 		updateNamespaceList();
 		// TODO: Fix navbar not highlighting initially selected nav item
-	}, [])
+	}, []);
 
 	return (
 		// @ts-expect-error
@@ -27,7 +26,7 @@ const App = () => {
 					<div className='p-0 justify-content-center align-items-center flex-column navbar-container'>
 						<Navbar activeNavEventKey={activeNavEventKey} setActiveNavEventKey={setActiveNavEventKey} />
 					</div>
-					<Col className='py-2'>
+					<Col className='pb-2 pr-2 pl-3'>
 						<ContentContainer activeNavEventKey={activeNavEventKey} />
 					</Col>
 				</Row>
