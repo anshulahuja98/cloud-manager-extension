@@ -1,9 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
-import { Col, Container, Dropdown, DropdownButton, ListGroup, Row } from 'react-bootstrap';
+import { Col, Container, Dropdown, DropdownButton, Row } from 'react-bootstrap';
 import { useStore } from '../../store/useStore';
 import { V1Node, V1NodeList } from '../../types/api';
-import { callAPI } from '../../utils';
+import ContentList from '../base/ContentList';
+import useAPI from '../hooks/useAPI';
 
 const Node: React.FC<{ node: V1Node }> = ({ node }) => {
 	return (
@@ -26,22 +26,14 @@ const Node: React.FC<{ node: V1Node }> = ({ node }) => {
 
 const NodeList: React.FC = () => {
 	const { kubernetesAPIs } = useStore();
-	const [nodeList, setNodeList] = useState<V1Node[]>([]);
-
-	React.useEffect(() => {
-		callAPI(kubernetesAPIs.NODE_LIST_API).then((nodeList: V1NodeList) => setNodeList(nodeList.items));
-	}, []);
-
+	const nodeList = useAPI<V1NodeList>(kubernetesAPIs.NODE_LIST_API);
 	return (
 		<>
-			<h5 className='pt-2'>Nodes</h5>
-			<ListGroup>
-				{nodeList.map((node: V1Node) => (
-					<ListGroup.Item className='px-3'>
-						<Node node={node} />
-					</ListGroup.Item>
-				))}
-			</ListGroup>
+			{nodeList !== null ? (
+				<ContentList list={nodeList.items} title={'Nodes'} renderItem={({ data }) => <Node node={data} />} />
+			) : (
+				'Loading...'
+			)}
 		</>
 	);
 };
