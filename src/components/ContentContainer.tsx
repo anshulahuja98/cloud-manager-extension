@@ -7,7 +7,8 @@ import NodeList from './categories/NodeList';
 import PodList from './categories/PodList';
 import ServiceList from './categories/ServiceList';
 import StatefulSetList from './categories/StatefulSetList';
-import { NAV_ITEMS } from './navItems';
+import { NAV_ITEMS } from '../common/navItems';
+import Settings from './categories/Settings';
 
 const ContentContainer = ({ activeNavEventKey }) => (
 	<Tabs className='flex-column' activeKey={activeNavEventKey}>
@@ -31,6 +32,9 @@ const ContentContainer = ({ activeNavEventKey }) => (
 		</Tab.Pane>
 		<Tab.Pane eventKey={NAV_ITEMS.DEAMONSETS}>
 			<DaemonSetList />
+		</Tab.Pane>
+		<Tab.Pane eventKey={NAV_ITEMS.SETTINGS}>
+			<Settings />
 		</Tab.Pane>
 	</Tabs>
 );
