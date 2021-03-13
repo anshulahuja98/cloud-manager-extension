@@ -24,17 +24,18 @@ const Navbar = ({ activeNavEventKey, setActiveNavEventKey }) => (
 		<NavItem eventKey={NAV_ITEMS.NODES}>
 			<FaCloud />
 		</NavItem>
-		<NavItem eventKey={NAV_ITEMS.EVENTS}>
-			<FaCloudUploadAlt />
-		</NavItem>
-		<NavItem eventKey={NAV_ITEMS.DEPLOYMENTS}>
-			<AiOutlineDeploymentUnit />
-		</NavItem>
 		<NavItem eventKey={NAV_ITEMS.PODS}>
 			<FaRocket />
 		</NavItem>
+		<NavItem eventKey={NAV_ITEMS.EVENTS}>
+			<FaCloudUploadAlt />
+		</NavItem>
 		<NavItem eventKey={NAV_ITEMS.SERVICES}>
 			<AiOutlineCloudUpload />
+		</NavItem>
+		<div className='my-2 mx-2' style={{ borderBottom: '1px solid #dee2e6' }} />
+		<NavItem eventKey={NAV_ITEMS.DEPLOYMENTS}>
+			<AiOutlineDeploymentUnit />
 		</NavItem>
 		<NavItem eventKey={NAV_ITEMS.DEAMONSETS}>
 			<AiFillSkype />

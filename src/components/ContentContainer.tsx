@@ -14,23 +14,23 @@ const ContentContainer = ({ activeNavEventKey }) => (
 		<Tab.Pane eventKey={NAV_ITEMS.NODES}>
 			<NodeList />
 		</Tab.Pane>
+		<Tab.Pane eventKey={NAV_ITEMS.PODS}>
+			<PodList />
+		</Tab.Pane>
 		<Tab.Pane eventKey={NAV_ITEMS.EVENTS}>
 			<EventList />
+		</Tab.Pane>
+		<Tab.Pane eventKey={NAV_ITEMS.SERVICES}>
+			<ServiceList />
 		</Tab.Pane>
 		<Tab.Pane eventKey={NAV_ITEMS.DEPLOYMENTS}>
 			<DeploymentList />
 		</Tab.Pane>
-		<Tab.Pane eventKey={NAV_ITEMS.PODS}>
-			<PodList />
-		</Tab.Pane>
-		<Tab.Pane eventKey={NAV_ITEMS.SERVICES}>
+		<Tab.Pane eventKey={NAV_ITEMS.STATEFULSETS}>
 			<StatefulSetList />
 		</Tab.Pane>
 		<Tab.Pane eventKey={NAV_ITEMS.DEAMONSETS}>
 			<DaemonSetList />
-		</Tab.Pane>
-		<Tab.Pane eventKey={NAV_ITEMS.STATEFULSETS}>
-			<ServiceList />
 		</Tab.Pane>
 	</Tabs>
 );
