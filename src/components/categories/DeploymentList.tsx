@@ -6,7 +6,6 @@ import ContentList from '../base/ContentList';
 import useAPI from '../hooks/useAPI';
 
 const Deployment: React.FC<{ data: V1Deployment }> = ({ data }) => {
-	console.log(data);
 	return (
 		<Container className='p-0'>
 			<Row className='align-items-center'>
@@ -31,7 +30,7 @@ const DeploymentList: React.FC = () => {
 
 	return (
 		<>
-			{deploymentList !== null && deploymentList.items.length > 0 ? (
+			{deploymentList !== null && deploymentList.items.length >= 0 ? (
 				<ContentList
 					list={deploymentList.items}
 					title={'Deployments'}
