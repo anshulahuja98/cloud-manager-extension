@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { Col, Container, Dropdown, DropdownButton, ListGroup, Row } from 'react-bootstrap';
 import { useStore } from '../../store/useStore';

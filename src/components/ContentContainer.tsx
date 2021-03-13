@@ -1,5 +1,3 @@
-import * as React from 'react';
-import Tab from 'react-bootstrap/Tab';
 import DaemonSetList from './categories/DaemonSetList';
 import DeploymentList from './categories/DeploymentList';
 import EventList from './categories/EventList';

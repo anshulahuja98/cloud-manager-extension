@@ -1,18 +1,17 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "strict": false,
-        "noImplicitReturns": false,
-        "noImplicitAny": false,
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "target": "es5",
-        "allowJs": true,
-        "jsx": "react",
-    },
-    "include": [
-        "./src/**/*",
-        "src/custom.d.ts"
-    ]
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"strict": false,
+		"noImplicitReturns": false,
+		"noImplicitAny": false,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"target": "es5",
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"jsx": "react"
+	},
+	"include": ["./src/**/*", "src/custom.d.ts"]
 }

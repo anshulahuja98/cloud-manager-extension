@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Row, Dropdown, DropdownButton } from 'react-bootstrap';
 import { V1Namespace } from '../types/api';
 import { useStore } from '../store/useStore';
