@@ -1,3 +1,5 @@
+import React from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
 import DaemonSetList from './categories/DaemonSetList';
 import DeploymentList from './categories/DeploymentList';
 import EventList from './categories/EventList';
@@ -8,7 +10,7 @@ import StatefulSetList from './categories/StatefulSetList';
 import { NAV_ITEMS } from './navItems';
 
 const ContentContainer = ({ activeNavEventKey }) => (
-	<Tab.Content className='flex-column' activeKey={activeNavEventKey}>
+	<Tabs className='flex-column' activeKey={activeNavEventKey}>
 		<Tab.Pane eventKey={NAV_ITEMS.NODES}>
 			<NodeList />
 		</Tab.Pane>
@@ -30,7 +32,7 @@ const ContentContainer = ({ activeNavEventKey }) => (
 		<Tab.Pane eventKey={NAV_ITEMS.STATEFULSETS}>
 			<ServiceList />
 		</Tab.Pane>
-	</Tab.Content>
+	</Tabs>
 );
 
 export default ContentContainer;

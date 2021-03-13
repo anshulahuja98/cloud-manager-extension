@@ -6,19 +6,20 @@ import { useStore } from '../store/useStore';
 const TopBar = () => {
 	const { namespaceList, activeNamespace, setActiveNamespace } = useStore();
 
-    return (
+	return (
 		<>
 			<Row className='justify-content-between align-items-center m-0 p-2 text-primary'>
 				<h6 className='font-weight-bold m-0'>AIO Cloud Management</h6>
 				<DropdownButton
 					menuAlign='right'
 					id='dropdown-namespace'
-					title={activeNamespace === null ? 'Namespaces' : activeNamespace.metadata.name}
-					activeKey={activeNamespace}>
+					title={activeNamespace === null ? 'Namespaces' : activeNamespace.metadata.name}>
 					{namespaceList.length > 0 ? (
 						namespaceList.map((namespace: V1Namespace) => {
 							return (
-								<Dropdown.Item eventKey={namespace} onSelect={() => setActiveNamespace(namespace)}>
+								<Dropdown.Item
+									eventKey={namespace.metadata.name}
+									onSelect={() => setActiveNamespace(namespace)}>
 									{namespace.metadata.name}
 								</Dropdown.Item>
 							);

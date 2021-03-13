@@ -34,10 +34,10 @@ const NodeList: React.FC = () => {
 
 	return (
 		<>
-			<h5>Nodes</h5>
+			<h5 className='pt-2'>Nodes</h5>
 			<ListGroup>
 				{nodeList.map((node: V1Node) => (
-					<ListGroup.Item>
+					<ListGroup.Item className='px-3'>
 						<Node node={node} />
 					</ListGroup.Item>
 				))}

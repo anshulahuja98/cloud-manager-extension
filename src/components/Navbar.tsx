@@ -11,20 +11,13 @@ const NavItem: React.FC<{ eventKey }> = ({ children, eventKey }) => {
 		<OverlayTrigger
 			key={eventKey}
 			placement={'right'}
-			overlay={
-				<Tooltip id={`tooltip-${eventKey}`}>
-					{eventKey}
-				</Tooltip>
-			}
-		>
+			overlay={<Tooltip id={`tooltip-${eventKey}`}>{eventKey}</Tooltip>}>
 			<Nav.Item>
-				<Nav.Link eventKey={eventKey}>
-					{children}
-				</Nav.Link>
+				<Nav.Link eventKey={eventKey}>{children}</Nav.Link>
 			</Nav.Item>
 		</OverlayTrigger>
-	)
-}
+	);
+};
 
 const Navbar = ({ activeNavEventKey, setActiveNavEventKey }) => (
 	<Nav variant='pills' className='flex-column p-0' activeKey={activeNavEventKey} onSelect={setActiveNavEventKey}>
