@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { callAPI } from '../utils';
 import { V1Namespace, V1NamespaceList } from '../types/api';
-import { NAV_ITEMS } from '../components/navItems';
+import { NAV_ITEMS } from '../common/navItems';
 import getAPIs from '../common/api';
 
 export const useGlobalState = () => {

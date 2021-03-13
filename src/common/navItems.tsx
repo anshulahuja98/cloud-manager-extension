@@ -6,4 +6,5 @@ export enum NAV_ITEMS {
     STATEFULSETS = 'Stateful Sets',
     DEAMONSETS = 'Daemon Sets',
     SERVICES = 'Services',
+    SETTINGS = 'Settings',
 }

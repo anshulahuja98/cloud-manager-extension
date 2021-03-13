@@ -1,5 +1,5 @@
 import React from 'react';
-import { NAV_ITEMS } from '../components/navItems';
+import { NAV_ITEMS } from '../common/navItems';
 import { V1Namespace } from '../types/api';
 
 export const Context = React.createContext<{
