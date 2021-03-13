@@ -27,6 +27,7 @@ export const useGlobalState = () => {
             callAPI(kubernetesAPIs.NAMESPACE_LIST_API)
                 .then((data: V1NamespaceList) => {
                     setNamespaceList(data.items);
+                    setActiveNamespace(data.items[0]);
                     setLoading(false);
                 })
                 .catch((err) => {
