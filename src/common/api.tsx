@@ -3,7 +3,7 @@ const getAPIs = (activeNamespace?: string) => {
 		DEPLOYMENT_LIST_API: `/apis/apps/v1/namespaces/${activeNamespace}/deployments`,
 		STATEFUL_SET_LIST_API: `/apis/apps/v1/namespaces/${activeNamespace}/statefulsets`,
 		DAEMON_SET_LIST_API: `/apis/apps/v1/namespaces/${activeNamespace}/daemonsets`,
-		SERVICE_LIST_API: `/apis/apps/v1/namespaces/${activeNamespace}/services`,
+		SERVICE_LIST_API: `/api/v1/services`,
 		POD_LIST_API: `/api/v1/pods`,
 		NODE_LIST_API: `/api/v1/nodes`,
 		EVENT_LIST_API: `/api/v1/events`,
