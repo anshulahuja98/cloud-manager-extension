@@ -6,7 +6,7 @@ function useAPI<S>(api: string) {
 
 	useEffect(() => {
 		callAPI(api).then((res) => setData(res));
-	}, []);
+	}, [api]);
 
 	return data;
 }
