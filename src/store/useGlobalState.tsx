@@ -10,6 +10,7 @@ export const useGlobalState = () => {
 	const [kubernetesAPIs, setKubernetesAPIs] = useState(getAPIs());
 	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
 	const [loading, setLoading] = useState(true);
+	const [config, setConfig] = useState(null);
 
 	const updateNamespaceList = useMemo(
 		() => () => {
@@ -40,5 +41,7 @@ export const useGlobalState = () => {
 		setActiveNamespace,
 		activeNavEventKey,
 		setActiveNavEventKey,
+		config,
+		setConfig,
 	};
 };
