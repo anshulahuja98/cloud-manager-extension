@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import { useStore } from '../../store/useStore';
+import yaml from 'js-yaml';
 
 const Settings = () => {
 	const { config, setConfig } = useStore();
@@ -8,8 +9,13 @@ const Settings = () => {
 
 	const handleFileRead = (e) => {
 		const content = fileReader.result;
-		console.log(content);
-		setConfig(content);
+		try {
+			let data = yaml.load(content);
+			console.log(data);
+			setConfig(data);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const handleFileChosen = (file) => {
