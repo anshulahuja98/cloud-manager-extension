@@ -15,7 +15,7 @@ const App = () => {
 
 	return (
 		<CookiesProvider>
-			<Container fluid className='p-0' style={{ width: '480px', height: '360px' }}>
+			<Container fluid className='p-0' style={{ width: '540px', height: '360px' }}>
 				<TopBar />
 				<Row className='m-0 h-100'>
 					<div className='p-0 justify-content-center align-items-center flex-column navbar-container'>
