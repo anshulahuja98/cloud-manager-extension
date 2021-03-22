@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { useStore } from '../../store/useStore';
 import yaml from 'js-yaml';
 import { useCookies } from 'react-cookie';
 
@@ -15,6 +14,11 @@ const Settings = () => {
 	};
 
 	const handleSaveConfigCookie = (config) => {
+		const nextYearDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+		const cookieOptions = {
+			path: '/',
+			expires: nextYearDate,
+		};
 		const contextNames = [];
 		config.contexts.forEach((contextObj) => {
 			const context = contextObj.context;
@@ -27,11 +31,11 @@ const Settings = () => {
 				server: clusterObj.cluster.server,
 			};
 			contextNames.push(contextName);
-			setCookie(contextName, JSON.stringify(contextData), { path: '/' });
+			setCookie(contextName, JSON.stringify(contextData), cookieOptions);
 		});
-		setCookie('contexts', JSON.stringify(contextNames), { path: '/' });
-		setCookie('current-context', config['current-context'], { path: '/' });
-		setCookie('apiVersion', config['apiVersion'], { path: '/' });
+		setCookie('contexts', JSON.stringify(contextNames), cookieOptions);
+		setCookie('current-context', config['current-context'], cookieOptions);
+		setCookie('apiVersion', config['apiVersion'], cookieOptions);
 	};
 
 	const handleFileRead = (e) => {
