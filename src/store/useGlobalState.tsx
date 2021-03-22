@@ -17,7 +17,7 @@ export const useGlobalState = () => {
 	const [activeContext, setActiveContext] = useState<KubeContext>(null);
 	const [activeNamespace, setActiveNamespace] = useState<V1Namespace>(null);
 
-	const reset = () => {
+	const resetGlobalState = () => {
 		setLoading(true);
 		setError(null);
 		setNamespaceList([]);
@@ -30,8 +30,8 @@ export const useGlobalState = () => {
 	}, [cookies]);
 
 	useEffect(() => {
-		if (!activeContext) return;
-		reset();
+		if (!activeContext || !activeContext.server) return;
+		resetGlobalState();
 		callAPI(activeContext.server + kubernetesAPIs.NAMESPACE_LIST_API, {
 			method: 'get',
 			headers: new Headers({
@@ -57,9 +57,11 @@ export const useGlobalState = () => {
 		activeNavEventKey,
 		setActiveNavEventKey,
 		contextList,
+		setContextList,
 		activeContext,
 		setActiveContext,
 		error,
 		setError,
+		resetGlobalState,
 	};
 };

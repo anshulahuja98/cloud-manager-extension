@@ -8,7 +8,7 @@ function useAPI<S>(api: string) {
 
 	useEffect(() => {
 		setData(null);
-		if (!activeContext) return;
+		if (!activeContext || !activeContext.server) return;
 		callAPI(activeContext.server + api, {
 			method: 'get',
 			headers: new Headers({
@@ -19,7 +19,7 @@ function useAPI<S>(api: string) {
 			.then((res) => setData(res))
 			.catch((err) => {
 				setError(err);
-				console.log(err)
+				console.log(err);
 			});
 	}, [activeContext, api]);
 

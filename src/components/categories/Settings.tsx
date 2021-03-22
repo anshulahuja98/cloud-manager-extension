@@ -2,10 +2,12 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import yaml from 'js-yaml';
 import { useCookies } from 'react-cookie';
+import { useStore } from '../../store/useStore';
 
 const Settings = () => {
 	let fileReader = null;
-	const [cookies, setCookie, removeCookie] = useCookies(['kubeconfig']);
+	const [cookies, setCookie, removeCookie] = useCookies([]);
+	const { setActiveContext, setContextList } = useStore();
 
 	const resetCookies = () => {
 		Object.keys(cookies).map((cookie) => {
@@ -14,6 +16,8 @@ const Settings = () => {
 	};
 
 	const handleSaveConfigCookie = (config) => {
+		resetCookies();
+
 		const nextYearDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
 		const cookieOptions = {
 			path: '/',
@@ -36,6 +40,9 @@ const Settings = () => {
 		setCookie('contexts', JSON.stringify(contextNames), cookieOptions);
 		setCookie('current-context', config['current-context'], cookieOptions);
 		setCookie('apiVersion', config['apiVersion'], cookieOptions);
+
+		setContextList(contextNames);
+		setActiveContext(cookies[config['current-context']]);
 	};
 
 	const handleFileRead = (e) => {
@@ -55,7 +62,6 @@ const Settings = () => {
 	};
 
 	const handleConfigFileUpload = (e) => {
-		resetCookies();
 		const file = e.target.files[0];
 		handleFileChosen(file);
 	};

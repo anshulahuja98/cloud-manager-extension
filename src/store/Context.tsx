@@ -25,4 +25,6 @@ export const Context = React.createContext<{
 	setActiveNavEventKey: (eventKey: NAV_ITEMS) => void;
 	setActiveNamespace: (namespace: V1Namespace) => void;
 	setActiveContext: (activeContext: KubeContext) => void;
+	setContextList: (contextList: string[]) => void;
+	resetGlobalState: () => void;
 }>(null);
