@@ -1,10 +1,9 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { callAPI } from '../utils';
 import { V1Namespace, V1NamespaceList } from '../types/api';
 import { NAV_ITEMS } from '../common/navItems';
 import getAPIs from '../common/api';
 import { useCookies } from 'react-cookie';
-import useAPI from '../components/hooks/useAPI';
 import { KubeContext } from '../types/config';
 
 export const useGlobalState = () => {
@@ -43,7 +42,6 @@ export const useGlobalState = () => {
 		activeNamespace,
 		loading,
 		kubernetesAPIs,
-		// updateNamespaceList,
 		setActiveNamespace,
 		activeNavEventKey,
 		setActiveNavEventKey,

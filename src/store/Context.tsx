@@ -21,6 +21,5 @@ export const Context = React.createContext<{
 	activeContext: KubeContext;
 	setActiveNavEventKey: (eventKey: NAV_ITEMS) => void;
 	setActiveNamespace: (namespace: V1Namespace) => void;
-	// updateNamespaceList: () => void;
 	setActiveContext: (activeContext: KubeContext) => void;
 }>(null);
