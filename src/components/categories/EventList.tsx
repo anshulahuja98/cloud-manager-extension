@@ -11,13 +11,17 @@ const Event: React.FC<{ data: V1beta1Event }> = ({ data }) => {
 			<Row className='align-items-center'>
 				<Col>{data.metadata.name}</Col>
 				<Col className='text-right'>
-					<DropdownButton title='Labels' id='node-list' variant='secondary' size='sm'>
-						{Object.keys(data.metadata.labels).map((key) => (
-							<Dropdown.Item>
-								{key} : {data.metadata.labels[key]}
-							</Dropdown.Item>
-						))}
-					</DropdownButton>
+					{data.metadata && data.metadata.labels ? (
+						<DropdownButton title='Labels' id='node-list' variant='secondary' size='sm'>
+							{Object.keys(data.metadata.labels).map((key) => (
+								<Dropdown.Item>
+									{key} : {data.metadata.labels[key]}
+								</Dropdown.Item>
+							))}
+						</DropdownButton>
+					) : (
+						<></>
+					)}
 				</Col>
 			</Row>
 		</Container>

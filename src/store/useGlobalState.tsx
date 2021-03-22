@@ -12,10 +12,12 @@ export const useGlobalState = () => {
 	const [cookies] = useCookies([]);
 	const [loading, setLoading] = useState(true);
 	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
+	const [contextList, setContextList] = useState<string[]>([]);
 	const [activeContext, setActiveContext] = useState<KubeContext>(null);
 	const [activeNamespace, setActiveNamespace] = useState<V1Namespace>(null);
 
 	useEffect(() => {
+		setContextList(cookies['contexts']);
 		setActiveContext(cookies[cookies['current-context']]);
 	}, [cookies]);
 
@@ -45,6 +47,7 @@ export const useGlobalState = () => {
 		setActiveNamespace,
 		activeNavEventKey,
 		setActiveNavEventKey,
+		contextList,
 		activeContext,
 		setActiveContext,
 	};
