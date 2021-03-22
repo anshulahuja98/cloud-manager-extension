@@ -24,7 +24,7 @@ const TopBar = () => {
 						menuAlign='right'
 						id='dropdown-context'
 						className='mr-2'
-						title={activeContext === null ? 'Contexts' : activeContext.name}>
+						title={!activeContext ? 'Contexts' : activeContext.name}>
 						{cookies && contextList && contextList.length > 0 ? (
 							contextList.map((contextName: string) => (
 								<Dropdown.Item

@@ -8,13 +8,10 @@ import ContentContainer from './components/ContentContainer';
 import TopBar from './components/TopBar';
 import { useStore } from './store/useStore';
 import { CookiesProvider } from 'react-cookie';
+import Error from './components/base/Error';
 
 const App = () => {
-	const {  activeNavEventKey, setActiveNavEventKey } = useStore();
-
-	// React.useEffect(() => {
-	// 	updateNamespaceList();
-	// }, []);
+	const { activeNavEventKey, setActiveNavEventKey, error } = useStore();
 
 	return (
 		<CookiesProvider>
@@ -25,7 +22,7 @@ const App = () => {
 						<Navbar activeNavEventKey={activeNavEventKey} setActiveNavEventKey={setActiveNavEventKey} />
 					</div>
 					<Col className='pb-2 pr-2 pl-3'>
-						<ContentContainer activeNavEventKey={activeNavEventKey} />
+						{error ? <Error error={error} /> : <ContentContainer activeNavEventKey={activeNavEventKey} />}
 					</Col>
 				</Row>
 			</Container>

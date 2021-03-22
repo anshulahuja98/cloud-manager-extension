@@ -11,10 +11,18 @@ export const useGlobalState = () => {
 	const [kubernetesAPIs, setKubernetesAPIs] = useState(getAPIs());
 	const [cookies] = useCookies([]);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
 	const [contextList, setContextList] = useState<string[]>([]);
 	const [activeContext, setActiveContext] = useState<KubeContext>(null);
 	const [activeNamespace, setActiveNamespace] = useState<V1Namespace>(null);
+
+	const reset = () => {
+		setLoading(true);
+		setError(null);
+		setNamespaceList([]);
+		setActiveNamespace(null);
+	};
 
 	useEffect(() => {
 		setContextList(cookies['contexts']);
@@ -23,6 +31,7 @@ export const useGlobalState = () => {
 
 	useEffect(() => {
 		if (!activeContext) return;
+		reset();
 		callAPI(activeContext.server + kubernetesAPIs.NAMESPACE_LIST_API, {
 			method: 'get',
 			headers: new Headers({
@@ -36,7 +45,7 @@ export const useGlobalState = () => {
 	}, [activeContext]);
 
 	useEffect(() => {
-		if (activeNamespace !== null) setKubernetesAPIs(getAPIs(activeNamespace.metadata.name));
+		if (activeNamespace) setKubernetesAPIs(getAPIs(activeNamespace.metadata.name));
 	}, [activeNamespace]);
 
 	return {
@@ -50,5 +59,7 @@ export const useGlobalState = () => {
 		contextList,
 		activeContext,
 		setActiveContext,
+		error,
+		setError,
 	};
 };
