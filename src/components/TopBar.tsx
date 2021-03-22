@@ -14,7 +14,7 @@ const TopBar = () => {
 					menuAlign='right'
 					id='dropdown-namespace'
 					title={activeNamespace === null ? 'Namespaces' : activeNamespace.metadata.name}>
-					{namespaceList.length > 0 ? (
+					{namespaceList && namespaceList.length > 0 ? (
 						namespaceList.map((namespace: V1Namespace) => {
 							return (
 								<Dropdown.Item

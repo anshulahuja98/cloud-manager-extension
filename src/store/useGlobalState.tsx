@@ -3,30 +3,36 @@ import { callAPI } from '../utils';
 import { V1Namespace, V1NamespaceList } from '../types/api';
 import { NAV_ITEMS } from '../common/navItems';
 import getAPIs from '../common/api';
+import { useCookies } from 'react-cookie';
+import useAPI from '../components/hooks/useAPI';
+import { KubeContext } from '../types/config';
 
 export const useGlobalState = () => {
 	const [namespaceList, setNamespaceList] = useState<V1Namespace[]>([]);
-	const [activeNamespace, setActiveNamespace] = useState<V1Namespace>(null);
 	const [kubernetesAPIs, setKubernetesAPIs] = useState(getAPIs());
-	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
+	const [cookies] = useCookies([]);
 	const [loading, setLoading] = useState(true);
-	const [config, setConfig] = useState(null);
+	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
+	const [activeContext, setActiveContext] = useState<KubeContext>(null);
+	const [activeNamespace, setActiveNamespace] = useState<V1Namespace>(null);
 
-	const updateNamespaceList = useMemo(
-		() => () => {
-			setLoading(true);
-			callAPI(kubernetesAPIs.NAMESPACE_LIST_API)
-				.then((data: V1NamespaceList) => {
-					setNamespaceList(data.items);
-					setActiveNamespace(data.items[0]);
-					setLoading(false);
-				})
-				.catch((err) => {
-					console.error({ message: 'Problem with calling API', error: err });
-				});
-		},
-		[setLoading]
-	);
+	useEffect(() => {
+		setActiveContext(cookies[cookies['current-context']]);
+	}, [cookies]);
+
+	useEffect(() => {
+		if (!activeContext) return;
+		callAPI(activeContext.server + kubernetesAPIs.NAMESPACE_LIST_API, {
+			method: 'get',
+			headers: new Headers({
+				Authorization: `Bearer ${activeContext.token}`,
+				Accept: 'application/json;v=v1;g=meta.k8s.io,application/json;v=v1beta1;g=meta.k8s.io,application/json',
+			}),
+		}).then((res: V1NamespaceList) => {
+			setNamespaceList(res.items);
+			setActiveNamespace(res.items[0]);
+		});
+	}, [activeContext]);
 
 	useEffect(() => {
 		if (activeNamespace !== null) setKubernetesAPIs(getAPIs(activeNamespace.metadata.name));
@@ -37,11 +43,11 @@ export const useGlobalState = () => {
 		activeNamespace,
 		loading,
 		kubernetesAPIs,
-		updateNamespaceList,
+		// updateNamespaceList,
 		setActiveNamespace,
 		activeNavEventKey,
 		setActiveNavEventKey,
-		config,
-		setConfig,
+		activeContext,
+		setActiveContext,
 	};
 };

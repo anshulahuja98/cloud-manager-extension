@@ -1,3 +1,5 @@
-export type KubeConfig = {
+export type KubeContext = {
 	name: string;
+	token: string;
+	server: string;
 };

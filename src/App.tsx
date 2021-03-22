@@ -10,11 +10,11 @@ import { useStore } from './store/useStore';
 import { CookiesProvider } from 'react-cookie';
 
 const App = () => {
-	const { updateNamespaceList, activeNavEventKey, setActiveNavEventKey } = useStore();
+	const {  activeNavEventKey, setActiveNavEventKey } = useStore();
 
-	React.useEffect(() => {
-		updateNamespaceList();
-	}, []);
+	// React.useEffect(() => {
+	// 	updateNamespaceList();
+	// }, []);
 
 	return (
 		<CookiesProvider>

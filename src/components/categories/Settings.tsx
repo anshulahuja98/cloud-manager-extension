@@ -5,7 +5,6 @@ import yaml from 'js-yaml';
 import { useCookies } from 'react-cookie';
 
 const Settings = () => {
-	const { config, setConfig } = useStore();
 	let fileReader = null;
 	const [cookies, setCookie, removeCookie] = useCookies(['kubeconfig']);
 
@@ -39,7 +38,6 @@ const Settings = () => {
 		const yamlCcontent = fileReader.result;
 		try {
 			let jsonContent = yaml.load(yamlCcontent);
-			setConfig(jsonContent);
 			handleSaveConfigCookie(jsonContent);
 		} catch (e) {
 			console.log(e);
@@ -62,12 +60,7 @@ const Settings = () => {
 		<>
 			<h5 className='pt-2'>Settings</h5>
 			<Form>
-				<Form.File
-					id='kube-config'
-					label={config ? config.name : 'Kube Config Upload'}
-					onChange={handleConfigFileUpload}
-					custom
-				/>
+				<Form.File id='kube-config' label={'Kube Config Upload'} onChange={handleConfigFileUpload} custom />
 			</Form>
 		</>
 	);

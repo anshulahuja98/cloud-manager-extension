@@ -1,7 +1,7 @@
 import React from 'react';
 import { NAV_ITEMS } from '../common/navItems';
 import { V1Namespace } from '../types/api';
-import { KubeConfig } from '../types/config';
+import { KubeContext } from '../types/config';
 
 export const Context = React.createContext<{
 	namespaceList: V1Namespace[];
@@ -18,9 +18,9 @@ export const Context = React.createContext<{
 		NAMESPACE_LIST_API: string;
 	};
 	activeNavEventKey: string;
-	config: KubeConfig;
+	activeContext: KubeContext;
 	setActiveNavEventKey: (eventKey: NAV_ITEMS) => void;
 	setActiveNamespace: (namespace: V1Namespace) => void;
-	updateNamespaceList: () => void;
-	setConfig: (config: KubeConfig) => void;
+	// updateNamespaceList: () => void;
+	setActiveContext: (activeContext: KubeContext) => void;
 }>(null);
