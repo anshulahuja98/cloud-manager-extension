@@ -4,11 +4,16 @@ import { callAPI } from '../../utils';
 
 function useAPI<S>(api: string) {
 	const [data, setData] = useState<S | null>(null);
-	const { activeContext, setError } = useStore();
+	const { activeContext, setError, activeNamespace, kubernetesAPIs } = useStore();
 
 	useEffect(() => {
 		setData(null);
 		if (!activeContext || !activeContext.server) return;
+
+
+		if (api in [kubernetesAPIs.DEPLOYMENT_LIST_API, kubernetesAPIs.STATEFUL_SET_LIST_API, kubernetesAPIs.DAEMON_SET_LIST_API] ){
+			if (!activeNamespace) return;
+		}
 		callAPI(activeContext.server + api, {
 			method: 'get',
 			headers: new Headers({
@@ -21,7 +26,7 @@ function useAPI<S>(api: string) {
 				setError(err);
 				console.log(err);
 			});
-	}, [activeContext, api]);
+	}, [activeContext, api, activeNamespace]);
 
 	return data;
 }
