@@ -3,17 +3,18 @@ import { callAPI } from '../utils';
 import { V1Namespace, V1NamespaceList } from '../types/api';
 import { NAV_ITEMS } from '../common/navItems';
 import getAPIs from '../common/api';
-import { useCookies } from 'react-cookie';
 import { KubeContext } from '../types/config';
+import useLocalStorage from '../components/hooks/useLocalStorage';
 
 export const useGlobalState = () => {
 	const [namespaceList, setNamespaceList] = useState<V1Namespace[]>([]);
 	const [kubernetesAPIs, setKubernetesAPIs] = useState(getAPIs());
-	const [cookies] = useCookies([]);
+	const [storage] = useLocalStorage('YAML_KEY', null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
-	const [contextList, setContextList] = useState<string[]>([]);
+	const [contextNamesList, setContextNamesList] = useState<string[]>([]);
+	const [contexts, setContexts] = useState<KubeContext[]>([]);
 	const [activeContext, setActiveContext] = useState<KubeContext>(null);
 	const [activeNamespace, setActiveNamespace] = useState<V1Namespace>(null);
 
@@ -25,9 +26,11 @@ export const useGlobalState = () => {
 	};
 
 	useEffect(() => {
-		setContextList(cookies['contexts']);
-		setActiveContext(cookies[cookies['current-context']]);
-	}, [cookies]);
+		if (!storage) return;
+		setContexts(storage['contexts']);
+		setContextNamesList(storage['contextNames']);
+		setActiveContext(storage['contexts'][storage['current-context']]);
+	}, [storage]);
 
 	useEffect(() => {
 		if (!activeContext || !activeContext.server) return;
@@ -56,11 +59,13 @@ export const useGlobalState = () => {
 		setActiveNamespace,
 		activeNavEventKey,
 		setActiveNavEventKey,
-		contextList,
-		setContextList,
+		contextNamesList,
+		setContextNamesList,
 		activeContext,
 		setActiveContext,
 		error,
+		contexts,
+		setContexts,
 		setError,
 		resetGlobalState,
 	};

@@ -2,18 +2,17 @@ import React from 'react';
 import { Row, Dropdown, DropdownButton, Col } from 'react-bootstrap';
 import { V1Namespace } from '../types/api';
 import { useStore } from '../store/useStore';
-import { useCookies } from 'react-cookie';
 
 const TopBar = () => {
 	const {
 		namespaceList,
 		activeNamespace,
 		setActiveNamespace,
-		contextList,
+		contextNamesList,
 		activeContext,
 		setActiveContext,
+		contexts,
 	} = useStore();
-	const [cookies] = useCookies([]);
 
 	return (
 		<>
@@ -25,11 +24,11 @@ const TopBar = () => {
 						id='dropdown-context'
 						className='mr-2'
 						title={activeContext === undefined || activeContext === null ? 'Contexts' : activeContext.name}>
-						{cookies && contextList && contextList.length > 0 ? (
-							contextList.map((contextName: string) => (
+						{contextNamesList && contextNamesList.length > 0 ? (
+							contextNamesList.map((contextName: string) => (
 								<Dropdown.Item
 									eventKey={contextName}
-									onSelect={() => setActiveContext(cookies[contextName])}>
+									onSelect={() => setActiveContext(contexts[contextName])}>
 									{contextName}
 								</Dropdown.Item>
 							))

@@ -1,54 +1,27 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import yaml from 'js-yaml';
-import { useCookies } from 'react-cookie';
 import { useStore } from '../../store/useStore';
+import useYaml from '../hooks/useYaml';
+import { getContexts } from '../hooks/parseKubernetesYaml';
 
 const Settings = () => {
 	let fileReader = null;
-	const [cookies, setCookie, removeCookie] = useCookies([]);
-	const { setActiveContext, setContextList } = useStore();
-
-	const resetCookies = () => {
-		Object.keys(cookies).map((cookie) => {
-			removeCookie(cookie);
-		});
-	};
+	const { yaml, saveYaml, yamlToJson } = useYaml('YAML_KEY');
+	const { setActiveContext, setContextNamesList, setContexts } = useStore();
 
 	const handleSaveConfigCookie = (config) => {
-		resetCookies();
-
-		const nextYearDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-		const cookieOptions = {
-			path: '/',
-			expires: nextYearDate,
-		};
-		const contextNames = [];
-		config.contexts.forEach((contextObj) => {
-			const context = contextObj.context;
-			const contextName = contextObj.name;
-			const clusterObj = config.clusters.filter((cluster) => cluster.name === context.cluster)[0];
-			const userObj = config.users.filter((user) => user.name === context.user)[0];
-			const contextData = {
-				name: contextName,
-				token: userObj.user.token ? userObj.user.token : null,
-				server: clusterObj.cluster.server,
-			};
-			contextNames.push(contextName);
-			setCookie(contextName, JSON.stringify(contextData), cookieOptions);
+		saveYaml(config, (config) => {
+			const { contexts, contextNames } = getContexts(config);
+			setContextNamesList(contextNames);
+			setContexts(contexts);
+			setActiveContext(config[config['current-context']]);
 		});
-		setCookie('contexts', JSON.stringify(contextNames), cookieOptions);
-		setCookie('current-context', config['current-context'], cookieOptions);
-		setCookie('apiVersion', config['apiVersion'], cookieOptions);
-
-		setContextList(contextNames);
-		setActiveContext(cookies[config['current-context']]);
 	};
 
 	const handleFileRead = (e) => {
-		const yamlCcontent = fileReader.result;
+		const yamlContent = fileReader.result;
 		try {
-			let jsonContent = yaml.load(yamlCcontent);
+			const jsonContent = yamlToJson(yamlContent);
 			handleSaveConfigCookie(jsonContent);
 		} catch (e) {
 			console.log(e);
@@ -75,4 +48,5 @@ const Settings = () => {
 		</>
 	);
 };
+
 export default Settings;
