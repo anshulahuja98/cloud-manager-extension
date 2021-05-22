@@ -9,20 +9,20 @@ const Settings = () => {
 	const { yaml, saveYaml, yamlToJson } = useYaml('YAML_KEY');
 	const { setActiveContext, setContextNamesList, setContexts } = useStore();
 
-	const handleSaveConfigCookie = (config) => {
-		saveYaml(config, (config) => {
-			const { contexts, contextNames } = getContexts(config);
+	const handleSaveConfigCookie = (yamlConfig) => {
+		saveYaml(yamlConfig, (yamlConfig) => {
+			const jsonConfig = yamlToJson(yamlConfig);
+			const { contexts, contextNames } = getContexts(jsonConfig);
 			setContextNamesList(contextNames);
 			setContexts(contexts);
-			setActiveContext(config[config['current-context']]);
+			setActiveContext(jsonConfig[jsonConfig['current-context']]);
 		});
 	};
 
 	const handleFileRead = (e) => {
 		const yamlContent = fileReader.result;
 		try {
-			const jsonContent = yamlToJson(yamlContent);
-			handleSaveConfigCookie(jsonContent);
+			handleSaveConfigCookie(yamlContent);
 		} catch (e) {
 			console.log(e);
 		}

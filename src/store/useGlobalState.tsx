@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { callAPI } from '../utils';
+import { callAPI, readFile } from '../utils';
 import { V1Namespace, V1NamespaceList } from '../types/api';
 import { NAV_ITEMS } from '../common/navItems';
 import getAPIs from '../common/api';
 import { KubeContext } from '../types/config';
-import useLocalStorage from '../components/hooks/useLocalStorage';
+import useYaml from '../components/hooks/useYaml';
+import { getContexts } from '../components/hooks/parseKubernetesYaml';
+import fs from 'fs';
 
 export const useGlobalState = () => {
 	const [namespaceList, setNamespaceList] = useState<V1Namespace[]>([]);
 	const [kubernetesAPIs, setKubernetesAPIs] = useState(getAPIs());
-	const [storage] = useLocalStorage('YAML_KEY', null);
+	const { yaml: config } = useYaml('YAML_KEY');
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [activeNavEventKey, setActiveNavEventKey] = useState(NAV_ITEMS.NODES);
@@ -26,25 +28,44 @@ export const useGlobalState = () => {
 	};
 
 	useEffect(() => {
-		if (!storage) return;
-		setContexts(storage['contexts']);
-		setContextNamesList(storage['contextNames']);
-		setActiveContext(storage['contexts'][storage['current-context']]);
-	}, [storage]);
+		if (!config) return;
+		const { contexts, contextNames } = getContexts(config);
+		setContextNamesList(contextNames);
+		setContexts(contexts);
+		setActiveContext(config['current-context']);
+	}, [config]);
 
 	useEffect(() => {
 		if (!activeContext || !activeContext.server) return;
 		resetGlobalState();
-		callAPI(activeContext.server + kubernetesAPIs.NAMESPACE_LIST_API, {
-			method: 'get',
-			headers: new Headers({
-				Authorization: `Bearer ${activeContext.token}`,
-				Accept: 'application/json;v=v1;g=meta.k8s.io,application/json;v=v1beta1;g=meta.k8s.io,application/json',
-			}),
-		}).then((res: V1NamespaceList) => {
-			setNamespaceList(res.items);
-			setActiveNamespace(res.items[0]);
-		});
+		const call = async () => {
+			// const key = await readFile(activeContext.key);
+			// const cert = await readFile(activeContext.cert);
+			const keyCertOptions =
+				activeContext.key && activeContext.cert
+					? {
+							key: activeContext.key,
+							cert: activeContext.cert,
+					  }
+					: {};
+			const headers = activeContext.token
+				? new Headers({
+						Authorization: `Bearer ${activeContext.token}`,
+						Accept: 'application/json;v=v1;g=meta.k8s.io,application/json;v=v1beta1;g=meta.k8s.io,application/json',
+				  })
+				: new Headers({
+						Accept: 'application/json;v=v1;g=meta.k8s.io,application/json;v=v1beta1;g=meta.k8s.io,application/json',
+				  });
+			callAPI(activeContext.server + kubernetesAPIs.NAMESPACE_LIST_API, {
+				method: 'get',
+				...keyCertOptions,
+				headers,
+			}).then((res: V1NamespaceList) => {
+				setNamespaceList(res.items);
+				setActiveNamespace(res.items[0]);
+			});
+		};
+		call();
 	}, [activeContext]);
 
 	useEffect(() => {

@@ -20,7 +20,6 @@ export const useLocalStorage = (key, initialValue) => {
 			console.error(err);
 		}
 	};
-
 	return [storedValue, setValue];
 };
 

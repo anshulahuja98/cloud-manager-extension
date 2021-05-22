@@ -9,6 +9,8 @@ export const getContexts = (config) => {
 		const contextData = {
 			name: contextName,
 			token: userObj.user.token ? userObj.user.token : null,
+			certificate: userObj.user['client-certificate'] ? userObj.user['client-certificate'] : null,
+			key: userObj.user['client-key'] ? userObj.user['client-key'] : null,
 			server: clusterObj.cluster.server,
 		};
 		contextNames.push(contextName);
